@@ -6,7 +6,10 @@ import urllib
 import random
 import simplejson as json
 
+import bottle
+from bottle import route, run
 
+bottle.debug(True)
 DEV_KEY = 'bcsge1z85nkg4cg8'
 
 def _make_call(**kwargs):
@@ -25,6 +28,7 @@ def enumerate(id):
         q='ids:%s' % id,
     )
 
+@route('/term_tuples/:id/:n')
 def term_tuples(id, n):
     """Return list of (word, definition tuples for a word set
     Args:
@@ -33,4 +37,6 @@ def term_tuples(id, n):
     """
     wordset = enumerate(id)['sets'][0]
     terms = wordset['terms']
-    return random.sample([(word, definition) for word, definition, image in terms], n)
+    return json.dumps(random.sample([(word, definition) for word, definition, image in terms], int(n)))
+
+run()
