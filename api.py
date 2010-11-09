@@ -18,11 +18,8 @@ def _make_call(**kwargs):
 def search(query):
 	return _make_call(q=query)
 
-def enumerate(id, creator):
+def enumerate(id):
 	return _make_call(
-		#extended='on',
-		#q=query,
-		#id=str(id),
-		#q='creator:%s' % creator,
-		q='id:%s' % id,
+		extended='on',
+		q='ids:%s' % id,
 	)
