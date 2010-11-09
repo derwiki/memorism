@@ -23,3 +23,8 @@ def enumerate(id):
 		extended='on',
 		q='ids:%s' % id,
 	)
+
+def term_tuples(id):
+	wordset = enumerate(id)['sets'][0]
+	terms = wordset['terms']
+	return [(word, definition) for word, definition, image in terms]
