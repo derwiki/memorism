@@ -85,17 +85,19 @@
             $('#board').click(function(ev) {
                 var $target = $(ev.target);
                 if (!$target.hasClass('card')) $target = $target.parent();
-                $target.quickFlipper();
+                
                 var card_id = $target[0].id.substring(4);
                 term_id = memorism.boardSlots[card_id].id
                 if (memorism.selected_card === null) {
                     memorism.selected_card = term_id;
+					$target.quickFlipper();
                 } else {
                     if (memorism.selected_card === term_id) {
+						$target.quickFlipper();
                         memorism.correct += 1;
                         alert('correct!');
                     } else {
-                        $target.quickFlipper();
+                        $target.quickFlipper({}, null, 2);
                         alert('incorrect!');
                     }
                     memorism.selected_card = null;
