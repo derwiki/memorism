@@ -9,11 +9,12 @@ import simplejson as json
 import bottle
 from bottle import route, run, template, view
 
+import config
+
 bottle.debug(True)
-DEV_KEY = 'bcsge1z85nkg4cg8'
 
 def _make_call(**kwargs):
-    url = 'http://quizlet.com/api/1.0/sets?dev_key=%s&' % DEV_KEY
+    url = 'http://quizlet.com/api/1.0/sets?dev_key=%s&' % config.dev_key
     req = urllib2.Request(url=url + urllib.urlencode(kwargs))
     with contextlib.closing(urllib2.urlopen(req)) as url_handle:
         resp = ''.join(url_handle.readlines())
