@@ -33,28 +33,37 @@
         
         memorism.actions.loadTerms = function(){
             var page = '/term_tuples/1088936/' + memorism.constants.numberOfTerms;
-			memorism.boardSlots = []
+			memorism.boardSlots = [];
+			memorism.definitions = [];
             
             $.getJSON(page, {}, function(data){
 				memorism.data = data;
 				data.forEach(function(term, index){
 					memorism.boardSlots.push({
 						id: index,
-						cleared: false,
 						term: term[0],
+						cleared: false
+					});
+					memorism.boardSlots.push({
+						id: index,
 						definition: term[1]
+					});
+					memorism.definitions.push({
+						id: index,
+						term: term[0],
+						definition: term[1],
+						cleared: false
 					});
 					console.log(memorism.boardSlots[index])
 				});
 				shuffle(memorism.boardSlots);
-				console.log(typeof(memorism.boardSlots));
-				console.log(memorism.boardSlots);
 			});
         };
       
 		$(document).ready(function(){
 			memorism.actions.loadTerms();
 		});
+
     </script>
 	</head>
 	<body>
