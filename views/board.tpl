@@ -73,4 +73,12 @@
         
         loadTerms();
     </script>
+	<body>
+		
+		<div id="board">
+			% for i in range(0, 30):
+				<div id="card{{i}}"></div>
+			% end 
+		</div>
+	</body>
 </html>
