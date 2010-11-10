@@ -54,14 +54,20 @@
 						definition: term[1],
 						cleared: false
 					});
-					console.log(memorism.boardSlots[index])
 				});
 				shuffle(memorism.boardSlots);
+				memorism.boardSlots.forEach(function(slot, index){
+					var card = $('#card' + index +' div');
+					console.log(slot);
+					card[0].innerHTML = slot.id;
+					card[1].innerHTML = slot.id;
+				});
 			});
         };
       
 		$(document).ready(function(){
 			memorism.actions.loadTerms();
+			
 		});
 
     </script>
