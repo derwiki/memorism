@@ -11,8 +11,20 @@
         </script>
         <script type="text/javascript" src="js/jquery.quickflip.source.js">
         </script>
-    </head>
     <script type="application/javascript">
+//shuffles list in-place
+		var shuffle = function(list) {
+		  var i, j, t;
+		  for (i = 1; i < list.length; i++) {
+			j = Math.floor(Math.random()*(1+i));  // choose j in [0..i]
+			if (j != i) {
+			  t = list[i];                        // swap list[i] and list[j]
+			  list[i] = list[j];
+			  list[j] = t;
+			}
+		  }
+		};
+
         var memorism = {};
 		memorism.constants = {};
 		memorism.actions = {};
@@ -21,61 +33,30 @@
         
         memorism.actions.loadTerms = function(){
             var page = '/term_tuples/1088936/' + memorism.constants.numberOfTerms;
-            memorism.board = new Array(memorism.constants.numberOfTerms * 2);
+			memorism.boardSlots = []
             
             $.getJSON(page, {}, function(data){
-                var i = 0;
-                for (i = 0; i < memorism.constants.numberOfTerms; i++) {
-                    var firstIndex = 2 * i;
-                    var secondIndex = 2 * i + 1;
-                    
-                    memorism.board[firstIndex] = {};
-                    memorism.board[firstIndex].cleared = false;
-                    memorism.board[firstIndex].term = data[i][0];
-                    memorism.board[firstIndex].answer = data[i][1];
-                    
-                    memorism.board[secondIndex] = {};
-                    memorism.board[secondIndex].cleared = false;
-                    memorism.board[secondIndex].term = data[i][0];
-                    memorism.board[secondIndex].answer = data[i][1];
-                }
-				
-				memorism.actions.shuffleBoard();
-            });
-        }
-        
-        memorism.actions.shuffleBoard = function(){
-            var i = 0;
-            var length = memorism.constants.numberOfTerms * 2;
-            for (i = 0; i < length; i++) {
-            
-                if (memorism.board[i].cleared) {
-                    continue;
-                }
-                
-                var tmp = null;
-                
-                tmp = memorism.board[i];
-                
-                var swapped = false;
-                
-                while (!swapped) {
-                    var switchIndex = Math.floor(Math.random() * length);
-                    
-                    if (memorism.board[switchIndex].cleared) {
-                        continue;
-                    }
-					
-					memorism.board[i] = memorism.board[switchIndex];
-					memorism.board[switchIndex] = tmp;
-					
-					swapped = true;
-                }
-            }
-        }
-        
-        memorism.actions.loadTerms();
+				memorism.data = data;
+				data.forEach(function(term, index){
+					memorism.boardSlots.push({
+						id: index,
+						cleared: false,
+						term: term[0],
+						definition: term[1]
+					});
+					console.log(memorism.boardSlots[index])
+				});
+				shuffle(memorism.boardSlots);
+				console.log(typeof(memorism.boardSlots));
+				console.log(memorism.boardSlots);
+			});
+        };
+      
+		$(document).ready(function(){
+			memorism.actions.loadTerms();
+		});
     </script>
+	</head>
 	<body>
 		
 		<div id="board">
