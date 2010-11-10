@@ -100,8 +100,8 @@
 		<div id="board">
 			% for i in range(0, 30):
 				<div id="card{{i}}" class="card">
-					<div class="panel1"></div>
-					<div class="panel2"></div>
+					<div class="panel panel1"></div>
+					<div class="panel panel2"></div>
 				</div>
 			% end
 		</div>

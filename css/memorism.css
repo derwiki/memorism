@@ -8,10 +8,17 @@
 	height: 150px;
     width: 205px;
 	margin: 10px;
-	background-color: #00B2EE;
 }
 
-.panel1, .panel2, .panel3 {
+.panel1 {
+    background-color: #CC1100;
+}
+
+.panel2 {
+    background-color: #00B2EE;
+}
+
+.panel {
     height: 50px;
     width: 60px;
     position: absolute;
