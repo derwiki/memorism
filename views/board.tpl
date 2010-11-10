@@ -58,14 +58,16 @@
 				shuffle(memorism.boardSlots);
 				memorism.boardSlots.forEach(function(slot, index){
 					var card = $('#card' + index +' div');
-					console.log(slot);
 					card[0].innerHTML = 'Memorism!';
-					card[1].innerHTML = slot.definition === undefined ? slot.term : slot.definition;
+					if (memorism.debug){card[0].innerHTML += '<br>\n' + slot.id;}
+					card[1].innerHTML = (slot.definition === undefined ? slot.term : slot.definition)
+					if (memorism.debug){card[1].innerHTML += '<br>\n' + slot.id;}
 				});
 			});
         };
       
 		$(document).ready(function(){
+			memorism.debug = true;
 			memorism.actions.loadTerms();
 			
 		});
