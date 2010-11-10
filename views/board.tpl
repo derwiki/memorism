@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <title>Memorisms</title>
+        <title>Memorism</title>
         <link type="text/css" href="css/redmond/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="css/basic-quickflips.css" />
 		<link rel="stylesheet" type="text/css" href="css/memorism.css" />
