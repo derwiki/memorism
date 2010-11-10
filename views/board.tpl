@@ -12,7 +12,7 @@
         <script type="text/javascript" src="js/jquery.quickflip.source.js">
         </script>
     <script type="application/javascript">
-//shuffles list in-place
+		//shuffles list in-place
 		var shuffle = function(list) {
 		  var i, j, t;
 		  for (i = 1; i < list.length; i++) {
@@ -65,6 +65,27 @@
 		});
 
     </script>
+	<script type="text/javascript">
+		$(function() {
+		    
+		    // for performance first init the quickFlip
+		    $('.card').quickFlip();
+		    
+		    // set up a click effect for each of the quickflip wrappers
+		    for ( var i = 0; i < $.quickFlip.wrappers.length; i++ ) {
+		        var thisOne = $.quickFlip.wrappers[i];
+		
+		        $( thisOne.wrapper ).click( function(ev) {
+		            var $target = $(ev.target);
+		            // make sure it isn't a child node
+		            if ( !$target.hasClass('card') ) $target = $target.parent();
+		            
+		            $target.quickFlipper();
+		            
+		        }, function() {});
+		    }
+		});
+	</script>
 	</head>
 	<body>
 		
