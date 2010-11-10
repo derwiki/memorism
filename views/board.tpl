@@ -78,20 +78,17 @@
 		    
 		    // for performance first init the quickFlip
 		    $('.card').quickFlip();
-		    
-		    // set up a click effect for each of the quickflip wrappers
-		    for ( var i = 0; i < $.quickFlip.wrappers.length; i++ ) {
-		        var thisOne = $.quickFlip.wrappers[i];
-		
-		        $( thisOne.wrapper ).click( function(ev) {
-		            var $target = $(ev.target);
-		            // make sure it isn't a child node
-		            if ( !$target.hasClass('card') ) $target = $target.parent();
-		            
-		            $target.quickFlipper();
-		            
-		        }, function() {});
-		    }
+
+			$('#board').click(function(ev) {
+				var $target = $(ev.target);
+				
+				if (!$target.hasClass('card')) $target = $target.parent();
+				
+				
+				
+				$target.quickFlipper();
+			});
+
 		});
 	</script>
 	</head>
