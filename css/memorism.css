@@ -1,0 +1,23 @@
+#board {
+    width: 900px;
+    margin: 30px auto;
+}
+
+.card {
+    float: left;
+	height: 200px;
+    width: 205px;
+	margin: 20px 10px 20px 10px;
+}
+
+.panel1, .panel2, .panel3 {
+    height: 50px;
+    width: 60px;
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    color: #FFF;
+    font-size: 18px;
+    font-family: "Trebuchet MS", Verdana, Sans-serif, sans;
+    line-height: 40px;
+}

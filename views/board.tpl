@@ -4,6 +4,7 @@
         <title>Memorisms</title>
         <link type="text/css" href="css/redmond/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="css/basic-quickflips.css" />
+		<link rel="stylesheet" type="text/css" href="css/memorism.css" />
         <script type="text/javascript" src="js/jquery-1.4.2.min.js">
         </script>
         <script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js">
@@ -79,15 +80,11 @@
 		
 		<div id="board">
 			% for i in range(0, 30):
-				% if i % 3 == 0:
-					% if i != 0:
-			</div>
-					% end 
-			<div>
-				% end
-				<div id="card{{i}}"></div>
+				<div id="card{{i}}" class="card">
+					<div class="panel1">Front</div>
+					<div class="panel2">Back</div>
+				</div>
 			% end
-			</div> 
 		</div>
 	</body>
 </html>
