@@ -7,7 +7,7 @@ import random
 import simplejson as json
 
 import bottle
-from bottle import route, run
+from bottle import route, run, template, view
 
 bottle.debug(True)
 DEV_KEY = 'bcsge1z85nkg4cg8'
@@ -39,4 +39,20 @@ def term_tuples(id, n):
     terms = wordset['terms']
     return json.dumps(random.sample([(word, definition) for word, definition, image in terms], int(n)))
 
+@route('/')
+def board():
+    return template('board')
+
+
+@route('/js/:filename#.*#')
+def javascript_file(filename):
+    bottle.send_file(filename, root='js/')
+
+@route('/css/:filename#.*#')
+def css_file(filename):
+    bottle.send_file(filename, root='css/')
+
+
 run()
+
+

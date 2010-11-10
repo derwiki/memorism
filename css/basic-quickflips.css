@@ -1,0 +1,116 @@
+/* it's a good idea to define a height and width for quickFlip */
+
+body {
+    min-width: 600px;
+}
+
+.quickFlip, .quickFlip3 {
+    height: 216px;
+    width: 322px;
+}
+
+.quickFlip2 {
+    height: 150px;
+    width: 40%;
+    float: left;
+    margin-right: 9%;
+}
+
+/* the rest of this is irrelevent */
+
+H1, H2 {
+    float: left;
+    padding-right: 15px;
+    line-height: 32px;
+}
+
+.clear {
+    clear: both;
+    magin: 0;
+    padding: 0;
+}
+
+.redPanel, .blackPanel {
+    text-align: center;
+}
+
+.half-col {
+    width: 50%;
+    float: left;
+}
+
+/**** panels ****/
+
+.quickFlip, .quickFlip2, .quickFlip3 {
+    font-family: "Trebuchet MS", Verdana, Sans-serif, sans;
+    font-size: 13px;
+    position: relative;
+}
+
+.quickFlip .blackPanel, .quickFlip2 .blackPanel, .quickFlip3 .blackPanel {
+    background-color: #FFD993;
+    color: darkbrown;
+    border: 1px outset #A61C14;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+.quickFlip .redPanel, .quickFlip2 .redPanel, .quickFlip3 .redPanel {
+    background-color: #75941f;
+    color: #FFF;
+    border: 1px outset #4f6417;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+.half-col p {
+    padding: 5px;
+    margin:0 30px 10px 30px;
+}
+
+.half-col p.panel-content {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.half-col h3, .half-col h4 {
+    padding: 0;
+    margin: 0 35px;
+}
+
+.half-col h3 {
+    text-align: left;
+    font-size:24px;
+    line-height:24px;
+}
+
+.half-col .redPanel h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.half-col .first {
+    margin-top: 30px;
+}
+
+.half-col EM {
+    display: block;
+    padding: 0;
+}
+
+.half-col A.quickFlipCta {
+    position: absolute;
+    bottom: 30px;
+    left: 65px;
+    width: 210px;
+    font-size: 15px;
+    outline: none;
+}
+
+.quickFlip2 .redPanel a {
+    color: #FFF;
+}
+
+.quickFlipCta {
+    cursor: pointer;
+}

@@ -1,0 +1,59 @@
+body {
+    text-align: center;
+}
+
+a {
+    color: #75941f;
+}
+
+#content {
+    width: 600px;
+    margin: 30px auto;
+}
+
+.clear {
+    clear: both;
+    margin: 0;
+    padding: 0;
+}
+
+.quickFlip {
+    height: 50px;
+    width: 60px;
+    float: left;
+}
+
+.panel1, .panel2, .panel3 {
+    height: 50px;
+    width: 60px;
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    color: #FFF;
+    font-size: 18px;
+    font-family: "Trebuchet MS", Verdana, Sans-serif, sans;
+    line-height: 40px;
+}
+
+.panel1 {
+    background-color: #95BD28;
+    z-index: 10;
+}
+
+.panel2 {
+    background-color: #FFD993;
+    color: #333;
+}
+
+.addthis_toolbox {
+    width: 240px;
+    margin: 30px auto;
+}
+
+.addthis_toolbox a {
+    color: #000;
+}
+
+.footer {
+    font-size: .8em;
+}
