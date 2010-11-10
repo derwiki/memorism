@@ -12,17 +12,17 @@
         </script>
     </head>
     <script type="application/javascript">
-        var numberOfTerms = 15;
         var memorism = {};
+        memsorism.constants.numberOfTerms = 15;
         memorism.first_choice = null;
         
-        function loadTerms(){
-            var page = '/term_tuples/1088936/' + numberOfTerms;
-            memorism.board = new Array(numberOfTerms * 2);
+        memorism.actions.loadTerms = function(){
+            var page = '/term_tuples/1088936/' + memorism.constants.numberOfTerms;
+            memorism.board = new Array(memorism.constants.numberOfTerms * 2);
             
             $.getJSON(page, {}, function(data){
                 var i = 0;
-                for (i = 0; i < numberOfTerms; i++) {
+                for (i = 0; i < memorism.constants.numberOfTerms; i++) {
                     var firstIndex = 2 * i;
                     var secondIndex = 2 * i + 1;
                     
@@ -37,13 +37,13 @@
                     memorism.board[secondIndex].answer = data[i][1];
                 }
 				
-				shuffleBoard();
+				memorism.actions.shuffleBoard();
             });
         }
         
-        function shuffleBoard(){
+        memorism.action.shuffleBoard = function(){
             var i = 0;
-            var length = numberOfTerms * 2;
+            var length = memorism.constants.numberOfTerms * 2;
             for (i = 0; i < length; i++) {
             
                 if (memorism.board[i].cleared) {
