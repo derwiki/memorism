@@ -63,6 +63,22 @@
 					card[1].innerHTML = (slot.definition === undefined ? slot.term : slot.definition)
 					if (memorism.debug){card[1].innerHTML += '<br>\n' + slot.id;}
 				});
+
+				memorism.selected_card = null;
+				$('#board').click(function(eve){
+					var card_id = eve.target.parentNode.id.substring(4);
+					term_id = memorism.boardSlots[card_id].id
+					if (memorism.selected_card === null) {
+						memorism.selected_card = term_id;
+					} else {
+						if (memorism.selected_card === term_id) {
+							alert('correct!');
+						} else {
+							alert('incorrect!' + memorism.selected_card + term_id);
+						}
+						memorism.selected_card = null;
+					}
+				})
 			});
         };
       
