@@ -13,7 +13,9 @@
     </head>
     <script type="application/javascript">
         var memorism = {};
-        memsorism.constants.numberOfTerms = 15;
+		memorism.constants = {};
+		memorism.actions = {};
+        memorism.constants.numberOfTerms = 15;
         memorism.first_choice = null;
         
         memorism.actions.loadTerms = function(){
@@ -41,7 +43,7 @@
             });
         }
         
-        memorism.action.shuffleBoard = function(){
+        memorism.actions.shuffleBoard = function(){
             var i = 0;
             var length = memorism.constants.numberOfTerms * 2;
             for (i = 0; i < length; i++) {
@@ -71,7 +73,7 @@
             }
         }
         
-        loadTerms();
+        memorism.actions.loadTerms();
     </script>
 	<body>
 		
