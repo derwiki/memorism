@@ -79,8 +79,15 @@
 		
 		<div id="board">
 			% for i in range(0, 30):
+				% if i % 3 == 0:
+					% if i != 0:
+			</div>
+					% end 
+			<div>
+				% end
 				<div id="card{{i}}"></div>
-			% end 
+			% end
+			</div> 
 		</div>
 	</body>
 </html>
