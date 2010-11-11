@@ -8,6 +8,7 @@
 	height: 150px;
     width: 205px;
 	margin: 10px;
+	background-color: #CC1100;
 }
 
 .panel1 {
@@ -18,9 +19,13 @@
     background-color: #00B2EE;
 }
 
+.panel3 {
+	background-color: #7FFF00;
+}
+
 .panel {
-    height: 50px;
-    width: 60px;
+    height: inherit;
+    width: inherit;
     position: absolute;
     overflow: hidden;
     text-align: center;

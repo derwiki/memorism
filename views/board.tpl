@@ -3,14 +3,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title>Memorism</title>
         <link type="text/css" href="css/redmond/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="css/basic-quickflips.css" />
         <link rel="stylesheet" type="text/css" href="css/memorism.css" />
         <script type="text/javascript" src="js/jquery-1.4.2.min.js">
         </script>
         <script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js">
         </script>
-        <script type="text/javascript" src="js/jquery.quickflip.source.js">
-        </script>
+        <script src="js/jquery.flip.min.js"></script>
     <script type="application/javascript">
         //shuffles list in-place
         var shuffle = function(list) {
@@ -59,16 +57,121 @@
                 shuffle(memorism.boardSlots);
                 memorism.boardSlots.forEach(function(slot, index){
                     var card = $('#card' + index +' div');
-                    card[0].innerHTML = 'Memorism!';
-                    if (memorism.debug){card[0].innerHTML += '<br>\n' + slot.id;}
-                    card[1].innerHTML = (slot.definition === undefined ? slot.term : slot.definition)
-                    if (memorism.debug){card[1].innerHTML += '<br>\n' + slot.id;}
+                    card[0].innerHTML = memorism.actions.createPanelContent(slot, 1, true);
                 });
 
                 memorism.selected_card = null;
+				memorism.selected_card_index = null;
             });
         };
+		
+		memorism.actions.createPanelContent = function(slot, type, inner_only) {
+			if (typeof inner_only == "undefined") {
+				inner_only = false;
+			}
+			
+			var content = '';
+			if(type == 1) {
+				if (!inner_only)
+					content += '<div class="panel panel1">';
+				content += 'Memorism!';				
+				if (memorism.debug)
+					content += '<br>\n' + slot.id;
+				if (!inner_only)
+					content += '</div>';
+			} else if(type == 2) {
+				if (!inner_only)
+					content += '<div class="panel panel2">';
+				content += slot.definition === undefined ? slot.term : slot.definition;
+				if (memorism.debug)
+					content += '<br>\n' + slot.id;
+				if (!inner_only)					
+					content += '</div>';
+			} else if(type == 3) {
+				if (!inner_only)
+					content += '<div class="panel panel3">';
+				content += 'Memorism!';
+				if (memorism.debug)
+					content += '<br>\n' + slot.id;
+				if (!inner_only)
+					content += '</div>';
+			}
+			
+			return content;
+		}
       
+	  	memorism.actions.flipCard = function(target, slot, show_face, revert, clear) {
+			if (show_face) {
+				var face_content = memorism.actions.createPanelContent(slot, 2);
+				if (revert) {
+					if (clear) {
+						clear_content = memorism.actions.createPanelContent(slot, 3);
+						target.queue("fQueue", function(next) {
+							target.flip({
+								direction: 'rl',
+								content: face_content
+							});	
+							next();
+						});
+						
+						target.delay(1500, "fQueue");
+						
+						target.queue("fQueue", function(next) {
+							target.flip({
+								direction: 'lr',
+								content: clear_content
+							});
+							
+							next();
+						});
+						
+						target.dequeue("fQueue");
+					} else {
+						back_content = memorism.actions.createPanelContent(slot, 1);
+						target.queue("fQueue", function(next) {
+							target.flip({
+								direction: 'rl',
+								content: face_content
+							});	
+							next();
+						})
+						.delay(1500, "fQueue")
+						.queue("fQueue", function(next) {
+							target.flip({
+								direction: 'lr',
+								content: back_content
+							});
+							
+							next();
+						});
+						
+						target.dequeue("fQueue");
+					}
+				}
+				else {
+					target.flip({
+						direction: 'rl',
+						content: face_content
+					});
+				}
+			} else {
+				var card_content = '';
+				if (clear) {
+					card_content = memorism.actions.createPanelContent(slot, 3);
+				} else {
+					card_content = memorism.actions.createPanelContent(slot, 1);
+				}
+				target.flip({
+					direction: 'rl',
+					content: card_content
+				});
+			}
+			
+			if (clear) {
+				slot.cleared = true;
+			}
+		};
+	  
         $(document).ready(function(){
             memorism.debug = true;
             memorism.actions.loadTerms();
@@ -79,30 +182,36 @@
     <script type="text/javascript">
         $(function() {
             
-            // for performance first init the quickFlip
-            $('.card').quickFlip();
-
             $('#board').click(function(ev) {
                 var $target = $(ev.target);
                 if (!$target.hasClass('card')) $target = $target.parent();
                 
                 var card_id = $target[0].id.substring(4);
-                term_id = memorism.boardSlots[card_id].id
-                if (memorism.selected_card === null) {
-                    memorism.selected_card = term_id;
-					$target.quickFlipper();
-                } else {
-                    if (memorism.selected_card === term_id) {
-						$target.quickFlipper();
-                        memorism.correct += 1;
-                        alert('correct!');
-                    } else {
-                        $target.quickFlipper({}, null, 2);
-                        alert('incorrect!');
-                    }
-                    memorism.selected_card = null;
-                }
-
+				var slot = memorism.boardSlots[card_id];
+                term_id = slot.id
+				
+				if (!slot.cleared) {
+					if (memorism.selected_card === null) {
+						memorism.selected_card = slot;
+						memorism.selected_card_index = card_id;
+						memorism.actions.flipCard($target, slot, true, false, false);
+					}
+					else {
+						if (memorism.selected_card.id === term_id) {
+							memorism.correct += 1;
+							alert('correct!');
+							memorism.actions.flipCard($target, slot, true, true, true);
+							memorism.actions.flipCard($("#card" + memorism.selected_card_index), memorism.selected_card, false, false, true);
+						}
+						else {
+							alert('incorrect!');
+							memorism.actions.flipCard($target, slot, true, true, false);
+							memorism.actions.flipCard($("#card" + memorism.selected_card_index), memorism.selected_card, false, false, false);
+						}
+						memorism.selected_card = null;
+						memorism.selected_card_index = null;
+					}
+				}
 
             });
 
@@ -115,7 +224,6 @@
             % for i in range(0, 30):
                 <div id="card{{i}}" class="card">
                     <div class="panel panel1"></div>
-                    <div class="panel panel2"></div>
                 </div>
             % end
         </div>
